@@ -1,72 +1,75 @@
-const gameBoard = document.getElementById('game-board');
+const container = document.querySelector("#container"); // Seleciona o elemento container
+const botoaReiniciar = document.querySelector("button"); // Botão para reiniciar
+let cartas;
+let primeiraCarta = "";
+let segundaCarta = "";
 
-// Pares de valores para as cartas
-const cardValues = ['🍎', '🍌', '🍇', '🍉', '🍒', '🍍', '🍓', '🍋', 
-                    '🍎', '🍌', '🍇', '🍉', '🍒', '🍍', '🍓', '🍋'];
+botoaReiniciar.addEventListener("click", () => location.reload()); //Clica no botão para reiniciar
 
-// Embaralha as cartas
-const shuffledValues = cardValues.sort(() => 0.5 - Math.random());
+let items = [
+  { nome: "aboboras", imagem: "./assets/img/aboboras.png" },
+  { nome: "caveira", imagem: "./assets/img/caveira.png" },
+  { nome: "ciclope", imagem: "./assets/img/ciclope.png" },
+  { nome: "cova", imagem: "./assets/img/cova.png" },
+  { nome: "frank", imagem: "./assets/img/frank.png" },
+  { nome: "morte", imagem: "./assets/img/morte.png" },
+  { nome: "ossos", imagem: "./assets/img/ossos.png" },
+  { nome: "vampiro", imagem: "./assets/img/vampiro.png" },
+]; //Array com as cartas
 
-// Variáveis para armazenar cartas viradas
-let firstCard = null;
-let secondCard = null;
+// duplicar o array de cartas e embaralhar os itens 
 
-// Função para criar o tabuleiro
-function createBoard() {
-  shuffledValues.forEach(value => {
-    const card = document.createElement('div');
-    card.classList.add('card');
-    card.innerHTML = `
-      <div class="card-inner">
-        <div class="card-front">${value}</div>
-        <div class="card-back"></div>
-      </div>
-    `;
-    card.addEventListener('click', flipCard);
-    gameBoard.appendChild(card);
+function criarCartas() {
+  let itemsDuplicados = [...items, ...items];
+  let halloween = itemsDuplicados.sort(() => Math.random() - 0.5);
+
+  halloween.map((animal) => {
+    container.innerHTML += `
+    <div class="carta" data-carta=${animal.nome}>
+    <div class="atras">?</div>
+    <div class="frente">
+      <img src=${animal.imagem} width="180px" height="180px" />
+    </div>`; // a frente da carta com a imagem e o verso com ?
   });
 }
+criarCartas();
 
-// Função para virar as cartas
-function flipCard() {
-  // Não permitir clique se a carta já está virada
-  if (this.classList.contains('flipped')) return;
+//adicionar comportamento de virar as cartas e chmar a função para verificar
+function virarCarta() {
+  cartas = document.querySelectorAll(".carta");
 
-  this.classList.add('flipped');
-
-  if (!firstCard) {
-    firstCard = this; // Primeira carta virada
-  } else {
-    secondCard = this; // Segunda carta virada
-    checkForMatch();
-  }
+  cartas.forEach((carta) => {
+    carta.addEventListener("click", () => {
+      if (primeiraCarta == "") {
+        carta.classList.add("carta-virada");
+        primeiraCarta = carta;
+      } else if (segundaCarta == "") {
+        carta.classList.add("carta-virada");
+        segundaCarta = carta;
+        checarCartas(carta);
+      }
+    });
+  });
 }
+virarCarta();
 
-// Função para verificar se as cartas são iguais
-function checkForMatch() {
-  const isMatch = firstCard.querySelector('.card-front').textContent === 
-                  secondCard.querySelector('.card-front').textContent;
+//Se as cartas viradas forem iguais tem o msm valor e permanecem viradas.
+//Senão elas são desviradas apos meio segundo 
 
-  if (isMatch) {
-    // Se for um par, desativa as cartas
-    firstCard.removeEventListener('click', flipCard);
-    secondCard.removeEventListener('click', flipCard);
-    resetCards();
+function checarCartas() {
+  const primeiroAnimal = primeiraCarta.getAttribute("data-carta");
+  const segundoAnimal = segundaCarta.getAttribute("data-carta");
+
+  if (primeiroAnimal == segundoAnimal) {
+    primeiraCarta = "";
+    segundaCarta = "";
   } else {
-    // Se não for um par, desvira as cartas
     setTimeout(() => {
-      firstCard.classList.remove('flipped');
-      secondCard.classList.remove('flipped');
-      resetCards();
-    }, 1000);
+      primeiraCarta.classList.remove("carta-virada");
+      segundaCarta.classList.remove("carta-virada");
+
+      primeiraCarta = "";
+      segundaCarta = "";
+    }, 600);
   }
 }
-
-// Função para resetar as variáveis
-function resetCards() {
-  firstCard = null;
-  secondCard = null;
-}
-
-// Inicializa o jogo
-createBoard();

@@ -1,61 +1,64 @@
+
 body {
-  font-family: Arial, sans-serif;
-  text-align: center;
-  background-color: wheat;
+  display: grid;
+  height: 100vh;
+  place-content: center;
+  font-family: sans-serif;
+  background-image: url("./assets/img/halloween.jpg");
+  background-size: cover;
 }
 
 h2 {
-  margin-top: 20px;
+  text-align: center;
+  color: black;
+  font-size: 40px;
 }
-
-#game-board {
+#container {
   display: grid;
-  grid-template-columns: repeat(4, 100px);
-  grid-gap: 10px;
-  justify-content: center;
-  margin: 20px auto;
+  grid-template-columns: 180px 180px 180px 180px;
+  gap: 10px;
 }
 
-.card {
-  width: 100px;
-  height: 100px;
+.carta {
   position: relative;
-  perspective: 1000px;
   cursor: pointer;
 }
 
-.card-inner {
+.atras {
   position: absolute;
-  width: 100%;
+  background-color: wheat;
   height: 100%;
-  transition: transform 0.6s;
-  transform-style: preserve-3d;
-}
-
-.card.flipped .card-inner {
-  transform: rotateY(180deg);
-}
-
-.card-front, .card-back {
-  position: absolute;
   width: 100%;
-  height: 100%;
+  font-size: 40px;
+  font-weight: bolder;
+  display: grid;
+  place-content: center;
+  transition: all 500ms ease;
   backface-visibility: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 10px;
 }
 
-.card-back {
-  background-color: #3498db;
-  color: white;
-  font-size: 2rem; /* Tamanho da interrogação */
-}
-
-.card-front {
-  background-color: #ffffff;
+.frente {
   transform: rotateY(180deg);
-  font-size: 3rem; /* Aumente este valor para deixar os ícones maiores */
-  
+  backface-visibility: hidden;
+  transition: all 500ms ease;
+}
+
+.carta-virada .frente {
+  transform: rotateY(0deg);
+}
+
+.carta-virada .atras {
+  transform: rotateY(180deg);
+}
+
+button {
+  border: 2px solid black;
+  border-radius: 15px;
+  padding: 20px;
+  width: 250px;
+  margin-top: 20px;
+  font-size: 17px;
+  font-weight: bold;
+  justify-self: center;
+  cursor: pointer;
 }
