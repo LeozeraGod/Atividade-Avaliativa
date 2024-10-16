@@ -6,9 +6,10 @@ body {
   font-family: sans-serif;
   background-image: url("./assets/img/halloween.jpg");
   background-size: cover;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
-h2 {
+h1 {
   text-align: center;
   color: black;
   font-size: 40px;
@@ -51,6 +52,11 @@ h2 {
   transform: rotateY(180deg);
 }
 
+#tempo {
+  margin: 10px;
+  font-size: 24px;
+  text-align: center;
+}
 button {
   border: 2px solid black;
   border-radius: 15px;
