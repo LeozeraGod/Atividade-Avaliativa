@@ -75,16 +75,21 @@ function checarCartas() {
     if (primeiroAnimal === segundoAnimal) {
       paresFormados++; // Incrementa o número de pares formados
       resetarCartas(); // Reseta as variáveis de controle
+      
       if (paresFormados === totalPares) {
         pararContador(); // Para o contador quando todos os pares forem formados
-        
+  
+        // Adiciona um pequeno atraso antes de exibir o alerta
+        setTimeout(() => {
+          alert(`Parabéns! Você venceu o jogo em ${tempo} segundos!`);
+        }, 500); // 500ms de atraso para que o jogador veja a última carta
       }
     } else {
       setTimeout(() => {
         primeiraCarta.classList.remove("carta-virada");
         segundaCarta.classList.remove("carta-virada");
         resetarCartas(); // Reseta as variáveis de controle
-      }, 600); // Espera 600ms antes de desvirar as cartas
+      }, 700); // Espera 700ms antes de desvirar as cartas
     }
   }
   
