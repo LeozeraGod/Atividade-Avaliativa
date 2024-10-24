@@ -18,10 +18,10 @@ let items = [
   { nome: "caveira", imagem: "./assets/img/caveira.png" },
   { nome: "ciclope", imagem: "./assets/img/ciclope.png" },
   { nome: "cova", imagem: "./assets/img/cova.png" },
-  { nome: "frank", imagem: "./assets/img/frank.png" },
-  { nome: "morte", imagem: "./assets/img/morte.png" },
-  { nome: "ossos", imagem: "./assets/img/ossos.png" },
-  { nome: "vampiro", imagem: "./assets/img/vampiro.png" },
+  { nome: "frank", imagem: "./assets/img/Frank.png" },
+  { nome: "morte", imagem: "./assets/img/Morte.png" },
+  { nome: "ossos", imagem: "./assets/img/Ossos.png" },
+  { nome: "vampiro", imagem: "./assets/img/Vampiro.png" },
 ]; //Todas as cartinhas que usei no código 
 
 // Função para criar cartas
@@ -112,3 +112,5 @@ function iniciarContador() {
 function pararContador() {
   clearInterval(intervalo);
 }
+
+
